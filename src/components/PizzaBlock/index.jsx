@@ -1,33 +1,42 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-const PizzaBlock = ({title, price, imageUrl, sizes, types, id}) => {
-const typeNames=["тонкое", "традиционное"] //0,1
+const PizzaBlock = ({ title, price, imageUrl, sizes, types, id }) => {
+  const typeNames = ['тонкое', 'традиционное']; //0,1
 
-    const [activeType, setActiveType]= useState(0);
-    const [activeSize, setActiveSize]= useState(0);
+  const [activeType, setActiveType] = useState(0);
+  const [activeSize, setActiveSize] = useState(0);
 
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src={imageUrl}
-        alt="Pizza"
-      />
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-            {types.map((typeId, i) =>(
-                <li key={id+typeId} onClick={()=>setActiveType(i)}  className={activeType===i ? "active": ""}>{typeNames[typeId]}</li>))}
+          {types.map((typeId, i) => (
+            <li
+              key={id + typeId}
+              onClick={() => setActiveType(i)}
+              className={activeType === i ? 'active' : ''}
+            >
+              {typeNames[typeId]}
+            </li>
+          ))}
         </ul>
         <ul>
-            {sizes.map((size,i) =>(
-                <li  key={id+size} onClick={()=>setActiveSize(i)}   className={activeSize===i ? "active" : ""} >{size} см.</li>
-            ))}
+          {sizes.map((size, i) => (
+            <li
+              key={id + size}
+              onClick={() => setActiveSize(i)}
+              className={activeSize === i ? 'active' : ''}
+            >
+              {size} см.
+            </li>
+          ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <button   className="button button--outline button--add">
+        <button className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -50,15 +59,11 @@ const typeNames=["тонкое", "традиционное"] //0,1
 
 export default PizzaBlock;
 
-
-
 /*
 <li className="active">26 см.</li>
 <li>30 см.</li>
 <li>40 см.</li>
 */
-
-
 
 /*
 <li className="active">тонкое</li>

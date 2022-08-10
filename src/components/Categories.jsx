@@ -1,33 +1,36 @@
-import {useState} from "react"
+import { useState } from 'react';
 
 function Categories() {
-    const [activeIndex, setActiveIndex] = useState(2);
+  const [activeIndex, setActiveIndex] = useState(2);
 
-    const categories=["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"]
+  const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-    const onClickHandler=(index)=>{
-        setActiveIndex(index);
-    }
+  const onClickHandler = index => {
+    setActiveIndex(index);
+  };
 
-    return (
-        <div className="categories">
-            <ul>
-                {categories.map((value, i)=>{
-                    return <li key={i} onClick={()=>onClickHandler(i)}  className={activeIndex===i ? "active" : ""}>{value}</li>
-                })
+  return (
+    <div className="categories">
+      <ul>
+        {categories.map((value, i) => {
+          return (
+            <li
+              key={i}
+              onClick={() => onClickHandler(i)}
+              className={activeIndex === i ? 'active' : ''}
+            >
+              {value}
+            </li>
+          );
+        })}
 
-                }
-
-
-                {/*<li onClick={()=>{onClickHandler(0)}} className={activeIndex===0 ?"active" :""}>Все</li>*/}
-
-            </ul>
-        </div>
-    );
+        {/*<li onClick={()=>{onClickHandler(0)}} className={activeIndex===0 ?"active" :""}>Все</li>*/}
+      </ul>
+    </div>
+  );
 }
 
 export default Categories;
-
 
 /*
 <li onClick={()=>{onClickHandler(1)}} className={activeIndex===1 ?"active" :""}>Мясные</li>
