@@ -60,7 +60,6 @@ const PizzaBlock = ({ title, price, imageUrl, sizes, types, id }) => {
 };
 
 export default PizzaBlock;
-
 /*
 <li className="active">26 см.</li>
 <li>30 см.</li>
