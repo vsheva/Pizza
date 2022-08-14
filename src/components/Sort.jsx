@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 
-function Sort({ value, onChangeSort }) {
+import { useSelector, useDispatch } from 'react-redux';
+import { setSort } from '../redux/slices/filterSlice';
+
+const list = [
+  { name: 'популярности (DESC)', sortProperty: 'rating' },
+  { name: 'популярности (ASC)', sortProperty: '-rating' },
+  { name: 'цене (DESC)', sortProperty: 'price' },
+  { name: 'цене (ASC)', sortProperty: '-price' },
+  { name: 'алфавиту (DESC)', sortProperty: 'title' },
+  { name: 'алфавиту (ASC)', sortProperty: '-title' },
+];
+
+function Sort() {
   const [open, setIsOpen] = useState(false);
+  const sort = useSelector(state => state.filter.sort);
+  const dispatch = useDispatch();
 
-  const list = [
-    { name: 'популярности (DESC)', sortProperty: 'rating' },
-    { name: 'популярности (ASC)', sortProperty: '-rating' },
-    { name: 'цене (DESC)', sortProperty: 'price' },
-    { name: 'цене (ASC)', sortProperty: '-price' },
-    { name: 'алфавиту (DESC)', sortProperty: 'title' },
-    { name: 'алфавиту (ASC)', sortProperty: '-title' },
-  ];
-
-  const onClickListItem = i => {
-    onChangeSort(i);
+  const onClickListItem = (obj) => {
+    dispatch(setSort(obj)); //который в initialState obj sort //console.log(obj) //{name: 'популярности (ASC)', sortProperty: '-rating'}
     setIsOpen(false);
   };
 
@@ -33,11 +38,10 @@ function Sort({ value, onChangeSort }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsOpen(!open)}>{value.name}</span>
+        <span onClick={() => setIsOpen(!open)}>{sort.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
-          {' '}
           {/*false && 100 - false */}
           <ul>
             {list.map((obj, i) => {
@@ -45,7 +49,7 @@ function Sort({ value, onChangeSort }) {
                 <li
                   key={i}
                   onClick={() => onClickListItem(obj)}
-                  className={value.sortProperty === obj.sortProperty ? 'active' : ''}
+                  className={sort.sortProperty === obj.sortProperty ? 'active' : ''}
                 >
                   {obj.name}
                 </li>
@@ -60,8 +64,4 @@ function Sort({ value, onChangeSort }) {
 
 export default Sort;
 
-/*
-<li className="active">популярности</li>
-<li>цене</li>
-<li>алфавиту</li>
-*/
+/*<><li className="active">популярности</li><li>цене</li><li>алфавиту</li></>*/
