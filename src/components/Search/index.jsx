@@ -1,9 +1,31 @@
 import styles from './Search.module.scss';
-import { useContext } from 'react';
+import { useContext, useRef, useCallback, useState } from 'react';
 import { SearchContext } from '../../App';
+import debounce from 'lodash.debounce';
 
 const Search = () => {
+  const [value, setValue] = useState("");
   const { searchValue, setSearchValue } = useContext(SearchContext);
+  const inputRef = useRef(); //вытащить ссылку на Dom-элемент //console.log(inputRef) //{current:undefined}
+
+  const onClickClear = () => {
+    setSearchValue('');
+    setValue('');
+    inputRef.current.focus();
+  };
+
+const updateSearchValue = useCallback(
+    debounce((str) => {
+      //console.log(str)
+      setSearchValue(str);
+    },250),
+    [],
+  );
+
+  const onChangeInput = (event) => {
+    setValue(event.target.value);// вместо setSearchValue
+    updateSearchValue(event.target.value);
+  };
 
   return (
     <div className={styles.root}>
@@ -43,15 +65,17 @@ const Search = () => {
       </svg>
 
       <input
-        value={searchValue} //***
-        onChange={event => setSearchValue(event.target.value)} //*
+        ref={inputRef}
+        value={value} //***
+        onChange={onChangeInput} //*
+        //onChange={event => setSearchValue(event.target.value)}
         className={styles.input}
         placeholder="Поиск пиццы..."
       />
 
-      {searchValue && (
+      {value && (
         <svg
-          onClick={() => setSearchValue('')}
+          onClick={onClickClear}
           className={styles.clearIcon}
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
