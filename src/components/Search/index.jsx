@@ -4,7 +4,7 @@ import { SearchContext } from '../../App';
 import debounce from 'lodash.debounce';
 
 const Search = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(''); //- local state -> controlled component
   const { searchValue, setSearchValue } = useContext(SearchContext);
   const inputRef = useRef(); //вытащить ссылку на Dom-элемент //console.log(inputRef) //{current:undefined}
 
@@ -14,17 +14,19 @@ const Search = () => {
     inputRef.current.focus();
   };
 
-const updateSearchValue = useCallback(
+//* debounce-2 // useCallback сохранает ссылку на отложенную ф-ю при 1-м рендере и больше не пересоздается
+  const updateSearchValue = useCallback(
     debounce((str) => {
-      //console.log(str)
+     // console.log(str)
       setSearchValue(str);
-    },250),
+    }, 250),
     [],
   );
 
+//* debounce-1 with local controlled component
   const onChangeInput = (event) => {
-    setValue(event.target.value);// вместо setSearchValue
-    updateSearchValue(event.target.value);
+    setValue(event.target.value); //если меняеися input вызываем debounce
+    updateSearchValue(event.target.value); // вызываем debounce
   };
 
   return (

@@ -17,7 +17,7 @@ function Sort() {
   const sort = useSelector(state => state.filter.sort);
   const dispatch = useDispatch();
 
-  const onClickListItem = (obj) => {
+  const onClickListItem = obj => {
     dispatch(setSort(obj)); //который в initialState obj sort //console.log(obj) //{name: 'популярности (ASC)', sortProperty: '-rating'}
     setIsOpen(false);
   };

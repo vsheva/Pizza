@@ -1,10 +1,10 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 //похож на const [categoryId,setCategoryId] =useState(0) ... в RTK разделено
 
 const initialState = {
   categoryId: 0,
-  currentPage:1,
+  currentPage: 1,
   sort: {
     name: 'популярности',
     sortProperty: 'rating',
