@@ -1,3 +1,131 @@
+import qs from "qs";
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+import {sortList} from '../components/Sort'
+
+import Categories from '../components/Categories';
+import Sort from '../components/Sort';
+import Skeleton from '../components/PizzaBlock/Skeleton';
+import PizzaBlock from '../components/PizzaBlock';
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+
+const Home = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const isSearch = useRef(false);
+    const isMounted= useRef(false);
+
+    const { categoryId, sort, currentPage } = useSelector(state => state.filter); //state={filter: {categoryId: 0, sort: {…}}
+    //const { sortType } = useSelector((state) => state.filter.sort.sortProperty)
+
+    const sortType = sort.sortProperty; //const sortType = useSelector((state)=>state.filter.sort.sortProperty) //state={filter: {categoryId: 0, sort: {…}}
+
+    const { searchValue } = useContext(SearchContext);
+    const [items, setItems] = useState([]);
+    const [isLoading, setLoading] = useState(true);
+
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [categoryId, setCategoryId] = useState(0);
+    //  const [sortType, setSortType] = useState({ name: 'популярности',sortProperty: 'rating',});
+
+
+
+    const onChangeCategory = (id) => {
+        dispatch(setCategoryId(id));//console.log(setCategoryId(id));//вызов метода (из редакса) возвращает action {type: 'filters/setCategoryId', payload: 1}
+    };
+
+    const onChangePage = (number) => {
+        dispatch(setCurrentPage(number));
+    };
+
+    const fetchPizzas=()=>{
+        setLoading(true);
+
+        const sortBy = sort.sortProperty.replace('-', '');
+        const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
+        const category = categoryId > 0 ? `category=${categoryId}` : ''; // const category = categoryId > 0 ? `&category=${categoryId}` : '';
+        const search = searchValue ? `search=${searchValue}` : '';
+
+        axios.get(`https://62e7897793938a545bd3a4cc.mockapi.io/api/v1/tasks?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`,)
+            .then(res => {
+                setItems(res.data);
+                setLoading(false);
+            });
+    }
+
+   //2.Если изменили параметры и был первый рендер...
+    useEffect(()=>{
+        if (isMounted.current) {
+            const queryString=qs.stringify({
+                sortProperty:sort.sortProperty,
+                categoryId,
+                currentPage,
+            });
+
+            //console.log(queryString)   //sortProperty=rating&categoryId=0&currentPage=1
+            navigate(`?${queryString}`)
+        }
+        isMounted.current=true; //рендер был
+    }, [categoryId, sort.sortProperty, currentPage])
+
+
+
+    //1.Если был первый рендер, то проверяем URL-параметры и сохраняем в redux
+     useEffect(() => {
+      if(window.location.search) {
+          const params= qs.parse(window.location.search.substring(1));  // console.log(params) //{sortProperty: 'rating', categoryId: '2', currentPage: '1'}
+
+        const sort= sortList.find(obj=> obj.sortProperty ===params.sortProperty);
+
+       dispatch(setFilters({
+               ...params,
+               sort,
+           }));
+       isSearch.current=true;
+      }
+     }, [])
+
+         //3. нужно ли мне делать запрос на изменение пицц
+    //Если пришли параметры из URL- при первом рендере ничего не делай. Если на самом деле, получаем информацию от пицц
+         //3.1 Если был первый рендер, то запрашиваем пиццы
+    useEffect(() => {
+        window.scrollTo(0, 0); //в Home.jsx при первом рендере чтобы перекидывало вверх
+
+        if(!isSearch.current) {fetchPizzas();}
+
+        isSearch.current=false;
+    }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+
+
+
+
+
+    const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />);
+    const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
+
+
+    return (
+        <div className="container">
+            <div className="content__top">
+                <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+                <Sort />
+            </div>
+            <h2 className="content__title">Все пиццы</h2>
+            <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+            <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+        </div>
+    );
+};
+
+export default Home;
+
+
+/**
 import axios from 'axios';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -11,69 +139,70 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const { categoryId, sort, currentPage } = useSelector(state => state.filter); //state={filter: {categoryId: 0, sort: {…}}
-  //const { sortType } = useSelector((state) => state.filter.sort.sortProperty)
+    const dispatch = useDispatch();
+    const { categoryId, sort, currentPage } = useSelector(state => state.filter); //state={filter: {categoryId: 0, sort: {…}}
+    //const { sortType } = useSelector((state) => state.filter.sort.sortProperty)
 
-  const sortType = sort.sortProperty; //const sortType = useSelector((state)=>state.filter.sort.sortProperty) //state={filter: {categoryId: 0, sort: {…}}
+    const sortType = sort.sortProperty; //const sortType = useSelector((state)=>state.filter.sort.sortProperty) //state={filter: {categoryId: 0, sort: {…}}
 
-  const { searchValue } = useContext(SearchContext);
-  const [items, setItems] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+    const { searchValue } = useContext(SearchContext);
+    const [items, setItems] = useState([]);
+    const [isLoading, setLoading] = useState(true);
 
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [categoryId, setCategoryId] = useState(0);
-  //  const [sortType, setSortType] = useState({ name: 'популярности',sortProperty: 'rating',});
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [categoryId, setCategoryId] = useState(0);
+    //  const [sortType, setSortType] = useState({ name: 'популярности',sortProperty: 'rating',});
 
-  /**  RTK это ДЕЛАЕТ АВТОМАТИЧЕСКИ за нас !!!
-   const setCategory=(id)=>{
+    /!**  RTK это ДЕЛАЕТ АВТОМАТИЧЕСКИ за нас !!!
+     const setCategory=(id)=>{
     return {type:'filters/categoryId', payload:id};
   }
-  */
+     *!/
 
-  const onChangeCategory = (id) => {
+    const onChangeCategory = (id) => {
         dispatch(setCategoryId(id));//console.log(setCategoryId(id));//вызов метода (из редакса) возвращает action {type: 'filters/setCategoryId', payload: 1}
-  };
+    };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
-  };
+    const onChangePage = (number) => {
+        dispatch(setCurrentPage(number));
+    };
 
-  useEffect(() => {
-    setLoading(true);
+    useEffect(() => {
+        setLoading(true);
 
-    const sortBy = sort.sortProperty.replace('-', '');
-    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
-    const category = categoryId > 0 ? `category=${categoryId}` : ''; // const category = categoryId > 0 ? `&category=${categoryId}` : '';
-    const search = searchValue ? `search=${searchValue}` : '';
+        const sortBy = sort.sortProperty.replace('-', '');
+        const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
+        const category = categoryId > 0 ? `category=${categoryId}` : ''; // const category = categoryId > 0 ? `&category=${categoryId}` : '';
+        const search = searchValue ? `search=${searchValue}` : '';
 
-    axios.get(`https://62e7897793938a545bd3a4cc.mockapi.io/api/v1/tasks?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`,)
-      .then(res => {
-        setItems(res.data);
-        setLoading(false);
-      });
-    window.scrollTo(0, 0); //в Home.jsx при первом рендере чтобы перекидывало вверх
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-
-
-  const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />);
-  const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
+        axios.get(`https://62e7897793938a545bd3a4cc.mockapi.io/api/v1/tasks?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`,)
+            .then(res => {
+                setItems(res.data);
+                setLoading(false);
+            });
+        window.scrollTo(0, 0); //в Home.jsx при первом рендере чтобы перекидывало вверх
+    }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
 
-  return (
-    <div className="container">
-      <div className="content__top">
-        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-        <Sort />
-      </div>
-      <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
-    </div>
-  );
+    const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />);
+    const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
+
+
+    return (
+        <div className="container">
+            <div className="content__top">
+                <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+                <Sort />
+            </div>
+            <h2 className="content__title">Все пиццы</h2>
+            <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+            <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+        </div>
+    );
 };
 
 export default Home;
+*/
 
 //<Sort {/*value={sortType} onChangeSort={(i) => setSortType(i)}*/}/>
 
