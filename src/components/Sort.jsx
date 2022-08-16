@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
@@ -16,14 +15,29 @@ function Sort() {
   const [open, setIsOpen] = useState(false);
   const sort = useSelector(state => state.filter.sort);
   const dispatch = useDispatch();
+  const sortRef= useRef();
 
   const onClickListItem = obj => {
     dispatch(setSort(obj)); //который в initialState obj sort //console.log(obj) //{name: 'популярности (ASC)', sortProperty: '-rating'}
     setIsOpen(false);
   };
 
+  //сокрытие окна по клику мимо сортировки и очистка добавочных листенеров
+  useEffect(() => {
+  const handleClickOutside=(event)=>{
+  if(!event.path.includes(sortRef.current)) {
+    setIsOpen(false);
+    //console.log("был клик на outside сорта")
+  }
+}
+   document.body.addEventListener("click", handleClickOutside);//обработчик
+
+return ()=> document.body.removeEventListener("click", handleClickOutside);
+
+  },[])
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
