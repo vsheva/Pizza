@@ -14,17 +14,17 @@ const Search = () => {
     inputRef.current.focus();
   };
 
-//* debounce-2 // useCallback сохранает ссылку на отложенную ф-ю при 1-м рендере и больше не пересоздается
+  //* debounce-2 // useCallback сохранает ссылку на отложенную ф-ю при 1-м рендере и больше не пересоздается
   const updateSearchValue = useCallback(
-    debounce((str) => {
-     // console.log(str)
+    debounce(str => {
+      // console.log(str)
       setSearchValue(str);
     }, 250),
     [],
   );
 
-//* debounce-1 with local controlled component
-  const onChangeInput = (event) => {
+  //* debounce-1 with local controlled component
+  const onChangeInput = event => {
     setValue(event.target.value); //если меняеися input вызываем debounce
     updateSearchValue(event.target.value); // вызываем debounce
   };

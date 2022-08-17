@@ -1,13 +1,15 @@
 import logoSvg from '../assets/img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
-import {useSelector} from "react-redux";
+import { useSelector } from 'react-redux';
 import Search from './Search';
 import React from 'react';
 
-function Header() {
- const {items, totalPrice} = useSelector(state=>state.cart);
+//отражаем в Header состояние корзины
 
- const totalCount=items.reduce((sum, item)=>sum + item.count,0) //totalCount
+function Header() {
+  const { items, totalPrice } = useSelector(state => state.cart);
+
+  const totalCount = items.reduce((sum, item) => sum + item.count, 0); //totalCount
 
   return (
     <div className="header">

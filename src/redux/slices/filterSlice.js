@@ -32,7 +32,6 @@ const filterSlice = createSlice({
       state.currentPage = Number(action.payload.currentPage);
       state.categoryId = Number(action.payload.categoryId);
     },
-
   },
 });
 

@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {addItem} from '../../redux/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../../redux/slices/cartSlice';
 
-  const typeNames = ['тонкое', 'традиционное']; //0,1
+const typeNames = ['тонкое', 'традиционное']; //0,1
 
+//добавить продукт в корзину
 
 const PizzaBlock = ({ title, price, imageUrl, sizes, types, id }) => {
   const dispatch = useDispatch();
-  const cartItem=useSelector(state=>state.cart.items.find((obj)=>obj.id===id));
+  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
 
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0); //*состояние
 
-  const addedCount= cartItem ? cartItem.count : 0;
+  const addedCount = cartItem ? cartItem.count : 0;
 
-const onClickAdd=()=>{
-const item={
-    id,
-    title,
-    price,
-    imageUrl,
-    type:typeNames[activeType],
-    size:sizes[activeSize], //*
-    }
-    dispatch(addItem(item))
-    }
+
+  const onClickAdd = () => {
+    const item = {
+      id,
+      title,
+      price,
+      imageUrl,
+      type: typeNames[activeType],//*сложно - тк вытаскиваю уже size в cartItem
+      size: sizes[activeSize], //*сложно!
+    };
+    dispatch(addItem(item));
+  };
 
   return (
     <div className="pizza-block-wrapper">
@@ -71,7 +73,7 @@ const item={
               />
             </svg>
             <span>Добавить</span>
-           {addedCount>0 && <i>{addedCount}</i>}
+            {addedCount > 0 && <i>{addedCount}</i>}
           </button>
         </div>
       </div>
@@ -86,7 +88,3 @@ export default PizzaBlock;
 <li>30 см.</li>
 <li>40 см.</li>
 */
-
-/*
-<li className="active">тонкое</li>
-<li>традиционное</li>*/

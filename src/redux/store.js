@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import filter from './slices/filterSlice'; //cюда импортируется export default counterSlice.reducer
-import cart from './slices/cartSlice'; //cюда импортируется export default counterSlice.reducer
+import cart from './slices/cartSlice';
+import pizza from './slices/pizzaSlice';
 
 export const store = configureStore({
   reducer: {
     filter: filter,
     cart,
+    pizza,
   },
 });
 
