@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Search from './Search';
 import React from 'react';
+import {selectCart} from "../redux/slices/cartSlice";
 
 //отражаем в Header состояние корзины
 
 function Header() {
-  const { items, totalPrice } = useSelector(state => state.cart);
+  const { items, totalPrice } = useSelector(selectCart);//передали селектор
 
   const totalCount = items.reduce((sum, item) => sum + item.count, 0); //totalCount
 

@@ -11,26 +11,24 @@ import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
 
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import {selectFilter, setCategoryId, setCurrentPage, setFilters} from '../redux/slices/filterSlice';
+import {fetchPizzas, selectPizzaData} from '../redux/slices/pizzaSlice';
 
 const Home = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  //const { searchValue } = useContext(SearchContext);
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter); //state={filter: {categoryId: 0, sort: {…}}   //const { sortType } = useSelector((state) => state.filter.sort.sortProperty)
-
-  const { items, status } = useSelector((state) => state.pizza);
-  const { searchValue } = useContext(SearchContext);
-  //const [items, setItems] = useState([]);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter); //state={filter: {categoryId: 0, sort: {…}}   //const { sortType } = useSelector((state) => state.filter.sort.sortProperty)
+  const { items, status } = useSelector(selectPizzaData); //in: selector
+  const dispatch = useDispatch();
 
 
-  const onChangeCategory = id => {
+  const onChangeCategory = (id) => {
     dispatch(setCategoryId(id)); //console.log(setCategoryId(id));//вызов метода (из редакса) возвращает action {type: 'filters/setCategoryId', payload: 1}
   };
 
-  const onChangePage = number => {
+  const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
 

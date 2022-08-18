@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 //похож на const [categoryId,setCategoryId] =useState(0) ... в RTK разделено
 
 const initialState = {
+  searchValue:'',
   categoryId: 0,
   currentPage: 1,
   sort: {
@@ -17,6 +18,10 @@ const filterSlice = createSlice({
   reducers: {
     setCategoryId(state, action) {
       state.categoryId = action.payload; //устанавливаем стейт state.categoryId равным переданному payload из action //console.log(action) //{type: 'filters/setCategoryId', payload: 3} ////// dispatch setCategoryId(5)======>setCategoryId(state, 5)
+    },
+
+    setSearchValue(state, action) {
+      state.searchValue = action.payload; //устанавливаем стейт state.categoryId равным переданному payload из action //console.log(action) //{type: 'filters/setCategoryId', payload: 3} ////// dispatch setCategoryId(5)======>setCategoryId(state, 5)
     },
 
     setSort(state, action) {
@@ -35,7 +40,10 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setCategoryId, setSort, setCurrentPage, setFilters } = filterSlice.actions;
+export const selectFilter =(state) => state.filter
+export const selectSort =(state) => state.filter.sort //селектор
+
+export const { setCategoryId, setSort, setCurrentPage, setFilters, setSearchValue } = filterSlice.actions;
 
 export default filterSlice.reducer;
 

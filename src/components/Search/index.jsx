@@ -1,15 +1,21 @@
 import styles from './Search.module.scss';
 import { useContext, useRef, useCallback, useState } from 'react';
+import {useDispatch } from 'react-redux';
 import { SearchContext } from '../../App';
+import {setSearchValue} from '../../redux/slices/filterSlice';
 import debounce from 'lodash.debounce';
 
 const Search = () => {
-  const [value, setValue] = useState(''); //- local state -> controlled component
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+const dispatch = useDispatch();
+const [value, setValue] = useState(''); //- local state -> controlled component
   const inputRef = useRef(); //вытащить ссылку на Dom-элемент //console.log(inputRef) //{current:undefined}
 
+
+  //const { searchValue, setSearchValue } = useContext(SearchContext);
+
   const onClickClear = () => {
-    setSearchValue('');
+    //setSearchValue('');
+    dispatch(setSearchValue(''))
     setValue('');
     inputRef.current.focus();
   };
@@ -17,8 +23,7 @@ const Search = () => {
   //* debounce-2 // useCallback сохранает ссылку на отложенную ф-ю при 1-м рендере и больше не пересоздается
   const updateSearchValue = useCallback(
     debounce(str => {
-      // console.log(str)
-      setSearchValue(str);
+      dispatch(setSearchValue(str))
     }, 250),
     [],
   );
