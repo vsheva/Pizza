@@ -19,9 +19,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  const { categoryId, sort, currentPage } = useSelector(state => state.filter); //state={filter: {categoryId: 0, sort: {…}}   //const { sortType } = useSelector((state) => state.filter.sort.sortProperty)
+  const { categoryId, sort, currentPage } = useSelector((state) => state.filter); //state={filter: {categoryId: 0, sort: {…}}   //const { sortType } = useSelector((state) => state.filter.sort.sortProperty)
 
-  const { items, status } = useSelector(state => state.pizza);
+  const { items, status } = useSelector((state) => state.pizza);
   const { searchValue } = useContext(SearchContext);
   //const [items, setItems] = useState([]);
 
