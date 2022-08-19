@@ -7,7 +7,7 @@ export const fetchPizzas = createAsyncThunk('users/fetchPizzasStatus', async (pa
     `https://62e7897793938a545bd3a4cc.mockapi.io/api/v1/tasks?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&${search}`,
   );
 
-   // console.log(thunkApi)
+   // console.log(thunkApi) //смотри внизу
   return data;
 });
 
@@ -42,7 +42,7 @@ const pizzaSlice = createSlice({
   },
 });
 
-export const selectPizzaData = (state) => state.pizza;
+export const selectPizzaData = (state) => state.pizza; //selector
 
 export const { setItems } = pizzaSlice.actions;
 
@@ -50,6 +50,8 @@ export default pizzaSlice.reducer;
 
 //
 /*
+
+// console.log(thunkApi)
 
 {extra: undefined, requestId: 'BnFS2pMnSu-mRi9CdLjgU', signal: AbortSignal, dispatch: ƒ, getState: ƒ, …}
 

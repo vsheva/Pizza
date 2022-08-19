@@ -6,16 +6,13 @@ import {setSearchValue} from '../../redux/slices/filterSlice';
 import debounce from 'lodash.debounce';
 
 const Search = () => {
-const dispatch = useDispatch();
+const dispatch = useDispatch();  //const { searchValue, setSearchValue } = useContext(SearchContext);
 const [value, setValue] = useState(''); //- local state -> controlled component
   const inputRef = useRef(); //вытащить ссылку на Dom-элемент //console.log(inputRef) //{current:undefined}
 
 
-  //const { searchValue, setSearchValue } = useContext(SearchContext);
-
   const onClickClear = () => {
-    //setSearchValue('');
-    dispatch(setSearchValue(''))
+    dispatch(setSearchValue('')) //!
     setValue('');
     inputRef.current.focus();
   };
@@ -23,7 +20,7 @@ const [value, setValue] = useState(''); //- local state -> controlled component
   //* debounce-2 // useCallback сохранает ссылку на отложенную ф-ю при 1-м рендере и больше не пересоздается
   const updateSearchValue = useCallback(
     debounce(str => {
-      dispatch(setSearchValue(str))
+      dispatch(setSearchValue(str)) //!
     }, 250),
     [],
   );
