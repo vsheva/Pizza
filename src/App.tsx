@@ -5,40 +5,23 @@ import NotFound from './pages/NotFound';
 import Header from './components/Header';
 import { Routes, Route } from 'react-router-dom';
 import './scss/app.scss';
-import FullPizza from "./pages/FullPizza"
-import MainLayout from "./layouts/MainLayout";
-
+import FullPizza from './pages/FullPizza';
+import MainLayout from './layouts/MainLayout';
 
 function App() {
-
- /*   function Parent({children}) {
-        return (
-            <div>
-                <h1>Заголовок</h1>
-                <Outlet/>
-                <h4> Родитель</h4>
-            </div>
-        )
-    }
-*/
-
   return (
-      <Routes>
-          <Route path="/" element={<MainLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/pizza/:id" element={<FullPizza />} />
-              <Route path="*" element={<NotFound />} />
-          </Route>
-      </Routes>
-
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pizza/:id" element={<FullPizza />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }
 
 export default App;
-
-
-
 
 /**
 function App() {
@@ -72,14 +55,6 @@ function App() {
 
 export default App;
 */
-
-
-
-
-
-
-
-
 
 /*
 {items.map(obj => (

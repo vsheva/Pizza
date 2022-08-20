@@ -1,7 +1,7 @@
 import qs from 'qs';
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { sortList } from '../components/Sort';
 
 import Categories from '../components/Categories';
@@ -10,9 +10,13 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
 
-
-import {selectFilter, setCategoryId, setCurrentPage, setFilters} from '../redux/slices/filterSlice';
-import {fetchPizzas, selectPizzaData} from '../redux/slices/pizzaSlice';
+import {
+  selectFilter,
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from '../redux/slices/filterSlice';
+import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -24,13 +28,11 @@ const Home = () => {
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter); //state={filter: {categoryId: 0, sort: {…}}   //const { sortType } = useSelector((state) => state.filter.sort.sortProperty)
   const { items, status } = useSelector(selectPizzaData); //in: selector
 
-
-
-  const onChangeCategory = (id) => {
+  const onChangeCategory = id => {
     dispatch(setCategoryId(id)); //console.log(setCategoryId(id));//вызов метода (из редакса) возвращает action {type: 'filters/setCategoryId', payload: 1}
   };
 
-  const onChangePage = (number) => {
+  const onChangePage = number => {
     dispatch(setCurrentPage(number));
   };
 
@@ -93,7 +95,8 @@ const Home = () => {
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const pizzas = items.map(obj => <Link to={`/pizza/${obj.id}`}  key={obj.id}><PizzaBlock  {...obj} /></Link>);
+  //const pizzas = items.map(obj => <Link to={`/pizza/${obj.id}`}  key={obj.id}><PizzaBlock  {...obj} /></Link>);
+  const pizzas = items.map(obj => <PizzaBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
 
   return (
