@@ -2,7 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSort, setSort } from '../redux/slices/filterSlice';
 
-export const sortList = [
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
+
+export const sortList: SortItem[] = [
   { name: 'популярности (DESC)', sortProperty: 'rating' },
   { name: 'популярности (ASC)', sortProperty: '-rating' },
   { name: 'цене (DESC)', sortProperty: 'price' },
@@ -12,19 +17,20 @@ export const sortList = [
 ];
 
 function Sort() {
-  const [open, setIsOpen] = useState(false);
   const sort = useSelector(selectSort); //in: селектор
   const dispatch = useDispatch();
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const onClickListItem = obj => {
+  const [open, setIsOpen] = useState(false);
+
+  const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj)); //который в initialState obj sort //console.log(obj) //{name: 'популярности (ASC)', sortProperty: '-rating'}
     setIsOpen(false);
   };
 
   //сокрытие окна по клику мимо сортировки и очистка добавочных листенеров
   useEffect(() => {
-    const handleClickOutside = event => {
+    const handleClickOutside = (event: any) => {
       if (!event.path.includes(sortRef.current)) {
         setIsOpen(false);
         //console.log("был клик на outside сорта")
@@ -55,7 +61,6 @@ function Sort() {
       </div>
       {open && (
         <div className="sort__popup">
-          {/*false && 100 - false */}
           <ul>
             {sortList.map((obj, i) => {
               return (

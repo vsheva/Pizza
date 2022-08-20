@@ -1,13 +1,10 @@
-function Categories({ value, onChangeCategory }) {
+type CategoriesProps = {
+  value: number;
+  onChangeCategory: any;
+};
+
+const Categories: React.FC<CategoriesProps> = ({ value, onChangeCategory }) => {
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-
-  /*
-     const [activeIndex, setActiveIndex] = useState(0);
-
-
-    const onClickHandler = index => {
-        setActiveIndex(index);
-    };*/
 
   return (
     <div className="categories">
@@ -19,15 +16,16 @@ function Categories({ value, onChangeCategory }) {
             </li>
           );
         })}
-
-        {/*<li onClick={()=>{onClickHandler(0)}} className={activeIndex===0 ?"active" :""}>Все</li>*/}
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;
-/*
+
+/** 
+ <li onClick={()=>{onClickHandler(0)}} className={activeIndex===0 ?"active" :""}>Все</li>
+
 <li onClick={()=>{onClickHandler(1)}} className={activeIndex===1 ?"active" :""}>Мясные</li>
 <li onClick={()=>{onClickHandler(2)}} className={activeIndex===2 ?"active" :""}>Вегетарианская</li>
 <li onClick={()=>{onClickHandler(3)}} className={activeIndex===3 ?"active" :""}>Гриль</li>

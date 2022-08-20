@@ -5,11 +5,12 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 
-const rootElem = document.getElementById('root');
-
 //есть ли рутовский элемент (не falsy)
+
+const rootElem = document.getElementById('root');
 if (rootElem) {
   const root = ReactDOM.createRoot(rootElem);
+
 
   root.render(
     <BrowserRouter>

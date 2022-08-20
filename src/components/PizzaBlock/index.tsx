@@ -8,7 +8,17 @@ const typeNames = ['тонкое', 'традиционное']; //0,1
 
 //добавить продукт в корзину
 
-const PizzaBlock = ({ title, price, imageUrl, sizes, types, id }) => {
+type PizzaBlockProps = {
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+  id: string;
+  rating: number;
+};
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, price, imageUrl, sizes, types, id }) => {
   const dispatch = useDispatch();
   //const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
   const cartItem = useSelector(selectCartItemById(id)); //in:selector
@@ -86,9 +96,3 @@ const PizzaBlock = ({ title, price, imageUrl, sizes, types, id }) => {
 };
 
 export default PizzaBlock;
-
-/*
-<li className="active">26 см.</li>
-<li>30 см.</li>
-<li>40 см.</li>
-*/

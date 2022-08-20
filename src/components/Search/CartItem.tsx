@@ -4,7 +4,17 @@ import CartEmpty from '../CartEmpty';
 
 import React from 'react';
 
-const CartItem = ({ id, size, title, type, price, count, imageUrl }) => {
+type CartItemsProps = {
+  id: string;
+  size: number;
+  title: string;
+  type: string;
+  price: number;
+  count: number;
+  imageUrl: string;
+};
+
+const CartItem: React.FC<CartItemsProps> = ({ id, size, title, type, price, count, imageUrl }) => {
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
@@ -120,4 +130,3 @@ const CartItem = ({ id, size, title, type, price, count, imageUrl }) => {
 };
 
 export default CartItem;
-

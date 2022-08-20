@@ -1,32 +1,36 @@
 import styles from './Search.module.scss';
 import { useContext, useRef, useCallback, useState } from 'react';
-import {useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 //import { SearchContext } from '../../App';
-import {setSearchValue} from '../../redux/slices/filterSlice';
+import { setSearchValue } from '../../redux/slices/filterSlice';
 import debounce from 'lodash.debounce';
 
-const Search = () => {
-const dispatch = useDispatch();  //const { searchValue, setSearchValue } = useContext(SearchContext);
-const [value, setValue] = useState(''); //- local state -> controlled component
-  const inputRef = useRef(); //вытащить ссылку на Dom-элемент //console.log(inputRef) //{current:undefined}
-
+const Search:React.FC = () => {
+  const dispatch = useDispatch(); //const { searchValue, setSearchValue } = useContext(SearchContext);
+  const [value, setValue] = useState(''); //- local state -> controlled component
+  const inputRef = useRef<HTMLInputElement>(null); //вытащить ссылку на Dom-элемент //console.log(inputRef) //{current:undefined}
 
   const onClickClear = () => {
-    dispatch(setSearchValue('')) //!
+    dispatch(setSearchValue('')); //!
     setValue('');
-    inputRef.current.focus();
+
+      //inputRef.current.focus() //ПРОБЛЕМА!
+   /**   //1 cпособ
+     if(inputRef.current) {
+      inputRef.current.focus();}*/
+      inputRef.current?.focus(); //ОПЕРАТОР ОПЦИОНАЛЬНОЙ ПОСЛЕДОВАТЕЛЬНОСТИ
   };
 
   //* debounce-2 // useCallback сохранает ссылку на отложенную ф-ю при 1-м рендере и больше не пересоздается
   const updateSearchValue = useCallback(
-    debounce(str => {
-      dispatch(setSearchValue(str)) //!
+    debounce((str:string) => {
+      dispatch(setSearchValue(str)); //!
     }, 250),
     [],
   );
 
   //* debounce-1 with local controlled component
-  const onChangeInput = event => {
+  const onChangeInput = (event:any) => {
     setValue(event.target.value); //если меняеися input вызываем debounce
     updateSearchValue(event.target.value); // вызываем debounce
   };
