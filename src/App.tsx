@@ -23,7 +23,8 @@ function App() {
 
 export default App;
 
-/**
+/** //Template//
+ 
 function App() {
 
     /!*   function Parent({children}) {
@@ -56,12 +57,3 @@ function App() {
 export default App;
 */
 
-/*
-{items.map(obj => (
-    <PizzaBlock key={obj.id} {...obj} />
-))}
-*/
-
-/*
-<Index title="Mexican" price={"500"} />
-<Index title="Vegetarian" price={350} />*/

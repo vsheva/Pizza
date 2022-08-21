@@ -4,14 +4,14 @@ import axios from 'axios';
 
 const FullPizza: React.FC = () => {
   const { id } = useParams(); //    console.log(params)  // http://localhost:3000/pizza/5     //{id: '5'}
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //функция перехода
 
-  //могло быть так  const [pizza, setPizza] = React.useState<number>();
+  //могло быть так  const [pizza, setPizza] = React.useState<number>(); | ТИПИЗАЦИЯ useState, где в pizza={}
   const [pizza, setPizza] = React.useState<{
     imageUrl: string;
     title: string;
     price: number;
-  }>(); //по умолчанию начальные значение-undefined
+  }>(); //1.по умолчанию начальные значение-undefined
 
   React.useEffect(() => {
     const fetchPizza = async () => {
@@ -28,10 +28,10 @@ const FullPizza: React.FC = () => {
     fetchPizza();
   }, []);
 
-  //пицца еще не загрузилась с бэка, но картинку мы уже просим, поэтому...
-  //tsx - если пицца undefined- верни jsx
-    //Теперь pizza- это обьект
-    if (!pizza) {
+  //пицца еще не загрузилась с бэка, но картинку уже просим, поэтому...
+  //tsx - если pizza undefined- верни <>Загрузка...</>
+  //.2 Теперь  pizza- это обьект (not undefined)
+  if (!pizza) {
     return <>Загрузка...</>;
   }
 
