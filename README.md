@@ -1,4 +1,5 @@
 # Pizza Online Store 
+<hr>
 
 This project is [here](https://profound-otter-73a6e3.netlify.app/).
 
