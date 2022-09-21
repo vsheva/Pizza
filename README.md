@@ -1,6 +1,6 @@
 # Pizza Online Store 
 
-This project is [here](https://profound-otter-73a6e3.netlify.app/).
+This project is [here](https://app.netlify.com/sites/heroic-marzipan-b3a166/overview).
 
 ## The tech stack is:
 - ReactJS 18
