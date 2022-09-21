@@ -2,10 +2,7 @@
 
 This project is [here](https://profound-otter-73a6e3.netlify.app/).
 
-## Available Scripts
-
-##The tech stack is:
-
+## The tech stack is:
 - ReactJS 18
 - TypeScript
 - Redux Toolkit 
