@@ -19,5 +19,4 @@ This project is [here](https://profound-otter-73a6e3.netlify.app/).
 
 
 In the project directory, you can run:
-
-### `npm start`
+#### `npm start`
