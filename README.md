@@ -16,7 +16,7 @@ This project is [here](https://profound-otter-73a6e3.netlify.app/).
 - Lodash.Debounce
 - Code Splitting, React Loadable, useWhyDidYouUpdate
 
-
+<hr>
 
 In the project directory, you can run:
 #### `npm start`
