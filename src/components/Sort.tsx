@@ -18,6 +18,7 @@ export const sortList: SortItem[] = [
 
 function Sort() {
   const sort = useSelector(selectSort); //in: селектор
+  //const sort = useSelector((state) => state.filter.sort); //in: селектор
   const dispatch = useDispatch();
   const sortRef = useRef<HTMLDivElement>(null);
 

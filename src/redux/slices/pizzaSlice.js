@@ -27,6 +27,7 @@ const pizzaSlice = createSlice({
       state.items = action.payload; //console.log(action)//{type: 'pizza/setItems', payload: Array(4)}
     },
   },
+
   extraReducers: {
     [fetchPizzas.pending]: (state, action) => {
       state.status = 'loading';
@@ -45,7 +46,7 @@ const pizzaSlice = createSlice({
   },
 });
 
-export const selectPizzaData = state => state.pizza; //selector
+export const selectPizzaData = (state) => state.pizza; //selector
 
 export const { setItems } = pizzaSlice.actions;
 

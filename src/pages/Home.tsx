@@ -16,6 +16,7 @@ import {
   setCurrentPage,
   setFilters,
 } from '../redux/slices/filterSlice';
+
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 
 const Home: React.FC = () => {
