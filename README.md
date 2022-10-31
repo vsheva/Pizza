@@ -1,6 +1,5 @@
-# Pizza Online Store 
+#  [Pizza Online Store](https://heroic-marzipan-b3a166.netlify.app/)
 
-This project is [here](https://heroic-marzipan-b3a166.netlify.app/).
 
 ## The tech stack is:
 - ReactJS 18
