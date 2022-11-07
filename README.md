@@ -1,4 +1,4 @@
-#  [Pizza Online Store](https://heroic-marzipan-b3a166.netlify.app/)
+#  [Pizza Store](https://heroic-marzipan-b3a166.netlify.app/)
 
 
 ## The tech stack is:
