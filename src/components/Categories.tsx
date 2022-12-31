@@ -11,7 +11,7 @@ const Categories: React.FC<CategoriesProps> = ({ value, onChangeCategory }) => {
       <ul>
         {categories.map((categoryName, i) => {
           return (
-            <li key={i} onClick={() => onChangeCategory(i)} className={value === i ? 'active' : ''}>
+            <li key={i} onClick={() =>( onChangeCategory(i)  ) } className={value === i ? 'active' : ''}>
               {categoryName}
             </li>
           );

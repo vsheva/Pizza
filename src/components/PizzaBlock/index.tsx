@@ -4,7 +4,7 @@ import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
 
 import { Link } from 'react-router-dom';
 
-const typeNames = ['тонкое', 'традиционное']; //0,1
+const typeNames = [ 'традиционное', "пышное"]; //0,1
 
 //добавить продукт в корзину
 
