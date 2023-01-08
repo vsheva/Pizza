@@ -12,6 +12,7 @@ export const store = configureStore({
 });
 
 /**
+ *
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './slices/filterSlice' //cюда импортируется export default counterSlice.reducer
 
