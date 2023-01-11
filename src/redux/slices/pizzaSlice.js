@@ -14,6 +14,9 @@ export const fetchPizzas = createAsyncThunk('users/fetchPizzasStatus', async (pa
 });
 
 
+
+//s lice
+
 const initialState = {
   items: [],
   status: 'loading', //loading | success | error
@@ -29,14 +32,14 @@ const pizzaSlice = createSlice({
   },
 
   extraReducers: {
-    [fetchPizzas.pending]: (state, action) => {
+    [fetchPizzas.pending]: (state) => {
       state.status = 'loading';
       state.items = [];
     },
 
     [fetchPizzas.fulfilled]: (state, action) => {
-      state.items = action.payload;
       state.status = 'success';
+      state.items = action.payload;
     },
 
     [fetchPizzas.rejected]: (state, action) => {
