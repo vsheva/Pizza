@@ -9,7 +9,7 @@ import { selectCart } from '../redux/slices/cartSlice';
 
 function Header() {
   const { items, totalPrice } = useSelector(selectCart); //передали селектор
-  //const pathName=window.location.pathname
+  //const pathName=window.location.pathname // не делает перерисовку
   const location = useLocation(); //console.log(location)//{pathname: '/cart', search: '', hash: '', state: null, key: 'tcsttjqt'}hash: ""key: "tcsttjqt"pathname: "/cart"search: ""state: null[[Prototype]]: Object
 
   const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0); //totalCount
