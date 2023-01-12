@@ -108,11 +108,11 @@ const Home: React.FC = () => {
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <Sort />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">All pizzas</h2>
       {status === 'error' ? (
         <div className="content__error-info">
-          <h2>Произошла ошибка 😕 </h2>
-          <p>К сожалению, не удалось получить пиццы. Попробуйте повторить попытку позже</p>
+          <h2>An error has occurred 😕 </h2>
+          <p>Sorry, we couldn't get pizzas. Please try again later</p>
         </div>
       ) : (
         <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>

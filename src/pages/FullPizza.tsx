@@ -21,7 +21,7 @@ const FullPizza: React.FC = () => {
         );
         return setPizza(data);
       } catch (err) {
-        alert('Ошибка при получении пиццы!');
+        alert('Error getting pizza!');
         navigate('/');
       }
     };
@@ -32,7 +32,7 @@ const FullPizza: React.FC = () => {
   //tsx - если pizza undefined- верни <>Загрузка...</>
   //.2 Теперь  pizza- это обьект (not undefined)
   if (!pizza) {
-    return <>Загрузка...</>;
+    return <>Loading...</>;
   }
 
   return (

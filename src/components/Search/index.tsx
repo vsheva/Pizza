@@ -78,7 +78,7 @@ const Search:React.FC = () => {
         onChange={onChangeInput} //*
         //onChange={event => setSearchValue(event.target.value)}
         className={styles.input}
-        placeholder="Поиск пиццы..."
+        placeholder="Pizza search..."
       />
 
       {value && (

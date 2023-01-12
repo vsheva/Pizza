@@ -4,7 +4,7 @@ import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
 
 import { Link } from 'react-router-dom';
 
-const typeNames = [ 'традиционное', "пышное"]; //0,1
+const typeNames = [ 'thin', "classic"]; //0,1
 
 //добавить продукт в корзину
 
@@ -66,7 +66,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, price, imageUrl, sizes, 
                 onClick={() => setActiveSize(i)}
                 className={activeSize === i ? 'active' : ''}
               >
-                {size} см.
+                {size} sm.
               </li>
             ))}
           </ul>
@@ -86,7 +86,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, price, imageUrl, sizes, 
                 fill="white"
               />
             </svg>
-            <span>Добавить</span>
+            <span>Add to order</span>
             {addedCount > 0 && <i>{addedCount}</i>}
           </button>
         </div>

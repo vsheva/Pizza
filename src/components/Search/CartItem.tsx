@@ -17,6 +17,7 @@ type CartItemsProps = {
 const CartItem: React.FC<CartItemsProps> = ({ id, size, title, type, price, count, imageUrl }) => {
   const dispatch = useDispatch();
 
+
   const onClickPlus = () => {
     dispatch(
       addItem({
@@ -25,6 +26,7 @@ const CartItem: React.FC<CartItemsProps> = ({ id, size, title, type, price, coun
     );
   };
 
+
   const onClickMinus = () => {
     dispatch(minusItem(id));
 
@@ -32,6 +34,7 @@ const CartItem: React.FC<CartItemsProps> = ({ id, size, title, type, price, coun
       dispatch(removeItem(id)); ///костыль
     }
   };
+
 
   const onClickRemove = () => {
     if (window.confirm('Are you sure you want to remove?')) {
@@ -52,9 +55,7 @@ const CartItem: React.FC<CartItemsProps> = ({ id, size, title, type, price, coun
         </div>
         <div className="cart__item-info">
           <h3>{title}</h3>
-          <p>
-            {type}, {size} см.
-          </p>
+          <p>{type}, {size} sm.</p>
         </div>
         <div className="cart__item-count">
           <div
