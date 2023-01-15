@@ -99,7 +99,11 @@ const Home: React.FC = () => {
 
   //const pizzas = items.map(obj => <Link to={`/pizza/${obj.id}`}  key={obj.id}><PizzaBlock  {...obj} /></Link>);
 
-  const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items.map((obj: any) => (
+       <Link to={`/pizza/${obj.id}`}>
+      <PizzaBlock key={obj.id} {...obj} />
+       </Link>
+  ));
   const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
 
   return (

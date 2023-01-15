@@ -2,6 +2,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import React from 'react';
 import axios from 'axios';
 
+// ID в Mochapi должны быть строкой  "id": "0",
+
 const FullPizza: React.FC = () => {
   const { id } = useParams(); //    console.log(params)  // http://localhost:3000/pizza/5     //{id: '5'}
   const navigate = useNavigate(); //функция перехода
@@ -12,6 +14,7 @@ const FullPizza: React.FC = () => {
     imageUrl: string;
     title: string;
     price: number;
+      description: string;
   }>(); //1.по умолчанию начальные значение-undefined
 
 
@@ -41,8 +44,9 @@ const FullPizza: React.FC = () => {
   return (
     <div className="container">
       <img src={pizza.imageUrl} />
-      <h2>{pizza.title}</h2>
-      <h4>{pizza.price}</h4>
+        <b><h2>{pizza.title}</h2></b>
+        <p>{pizza.description}</p>
+      <h4>Price: {pizza.price}  ₽</h4>
     </div>
   );
 };
