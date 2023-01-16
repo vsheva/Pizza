@@ -16,6 +16,10 @@ export const sortList: SortItem[] = [
   { name: 'алфавиту (ASC)', sortProperty: '-title' },
 ];
 
+type Popup = MouseEvent & {
+  path: Node[];
+}
+
 function Sort() {
   const sort = useSelector(selectSort); //in: селектор
   //const sort = useSelector((state) => state.filter.sort); //in: селектор
@@ -31,8 +35,12 @@ function Sort() {
 
   //сокрытие окна по клику мимо сортировки и очистка добавочных листенеров
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event=event as MouseEvent & {
+        path: Node[];
+      };
+
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setIsOpen(false);
         //console.log("был клик на outside сорта")
       }

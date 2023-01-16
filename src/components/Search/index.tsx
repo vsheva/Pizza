@@ -1,5 +1,5 @@
 import styles from './Search.module.scss';
-import { useContext, useRef, useCallback, useState } from 'react';
+import React, { useContext, useRef, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 //import { SearchContext } from '../../App';
 import { setSearchValue } from '../../redux/slices/filterSlice';
@@ -10,9 +10,10 @@ const Search:React.FC = () => {
   const [value, setValue] = useState(''); //- local state -> controlled component
   const inputRef = useRef<HTMLInputElement>(null); //вытащить ссылку на Dom-элемент //console.log(inputRef) //{current:undefined}
 
-  const onClickClear = () => {
+  const onClickClear = (event:React.MouseEvent<SVGSVGElement>) => {
     dispatch(setSearchValue('')); //!
     setValue('');
+
 
       //inputRef.current.focus() //ПРОБЛЕМА!
    /**   //1 cпособ
@@ -30,13 +31,18 @@ const Search:React.FC = () => {
   );
 
   //* debounce-1 with local controlled component
-  const onChangeInput = (event:any) => {
+  const onChangeInput = (event:React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value); //если меняеися input вызываем debounce
     updateSearchValue(event.target.value); // вызываем debounce
   };
 
+ /* const onClickDiv=(event:React.MouseEvent<HTMLDivElement>)=>{
+      console.log("Mouse event", event)
+  }*/
+
+
   return (
-    <div className={styles.root}>
+    <div    className={styles.root}>
       <svg
         className={styles.icon}
         enableBackground="new 0 0 32 32"
