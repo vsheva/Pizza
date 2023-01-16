@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 const typeNames = [ 'традиционное', "пышное"]; //0,1
 
+
 //добавить продукт в корзину
 
 type PizzaBlockProps = {
