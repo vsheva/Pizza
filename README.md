@@ -1,4 +1,4 @@
-#  [Pizza store](https://spiffy-pony-abd088.netlify.app)
+#  [Pizza](https://spiffy-pony-abd088.netlify.app)
 
 
 ## The tech stack is:
