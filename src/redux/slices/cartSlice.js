@@ -10,14 +10,7 @@ const cartSlice = createSlice({
   initialState: initialState,
   reducers: {
     addItem(state, action) {
-        /** console.log(action)
-          {type: 'cart/addItem', payload: {
-        id: 6
-        imageUrl: "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/d2e337e9-e07a-4199-9cc1-501cc44cb8f8.jpg"
-        price: 675
-        size: 26
-        title: "Пепперони"
-        type: "тонкое"}}*/
+      
       const findItem = state.items.find(obj => obj.id === action.payload.id);
 
       if (findItem) {
